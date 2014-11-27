@@ -1,6 +1,7 @@
 __author__ = 'paultrelease'
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
+import requests
 import os
 app = Flask(__name__)
 
@@ -11,11 +12,16 @@ def index():
 @app.route('/removerestriction', methods=['POST'])
 def remove_restriction():
     referencenumber = request.form.get('referencenumber')
-    #When this is done properly, a call to another microservice will take place
-    #and if the case is successful then the page below will be rendered.
-    return render_template("restriction_removed.html", referencenumber=referencenumber)
-
+    # Need to find a way to change this to the cloud 9 url when appropriate.
+    # Probably set up an environment.sh, that just gets picked up locally.
+    url = 'http://0.0.0.0:5010/titlefromreference'
+    data = {"reference": referencenumber}
+    headers = {'Content-Type': 'application/json'}
+    r = requests.post(url, data=json.dumps(data), headers=headers)
+    titlenumber = r.text
+    app.logger.debug(r.text)
+    return render_template("restriction_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
 
 
 if __name__ == '__main__':
-    app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 5010)))
+    app.run(debug=True,host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 5009)))
