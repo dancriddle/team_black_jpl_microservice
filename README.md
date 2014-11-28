@@ -14,9 +14,22 @@ Flask
  
 Jinja
 
+Resolve Python dependencies by running pip install -r requirements.txt
+
 team_black_casework service found at: https://github.com/dancriddle/team_black_casework
 
-Install by running pip install -r requirements.txt
+
+##config.py
+create a config.py when you run the application.  It needs a key to know where the casework service is.  e.g.
+
+```
+CASEWORK_STUB = 'http://0.0.0.0:5010'
+```
+or
+
+```
+CASEWORK_STUB = 'CASEWORK_STUB = 'https://team-black-casework-yourname.c9.io'
+```
 
 ##how to use it
 

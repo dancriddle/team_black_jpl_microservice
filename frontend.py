@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, json
 import requests
 import os
 app = Flask(__name__)
+app.config.from_object('config')
 
 @app.route('/')
 def index():
@@ -47,6 +48,7 @@ def remove_restriction():
     #if titlenumber == "Referance not valid":
         #return render_template("reference_invalid.html", referencenumber=referencenumber)
     #else:
+
     return render_template("restriction_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
     
     #return render_template("restriction_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
