@@ -12,8 +12,7 @@ def index():
 
 @app.route('/checkfortitle', methods=['POST'])
 def check_for_title():
-    #here, we'll make the call to url = 'http://0.0.0.0:5010/titlefromreference' etc'
-    url = 'https://team-black-casework-2-srallis1-2.c9.io/titlefromreference'
+    url = '%s/titlefromreference' % app.config['CASEWORK_STUB']
     referencenumber = request.form.get('referencenumber')
     data = {"reference": referencenumber}
     headers = {'Content-Type': 'application/json'}
