@@ -21,10 +21,7 @@ def check_for_title():
 @app.route('/removerestriction', methods=['POST'])
 def remove_restriction():
     referencenumber = request.form.get('referencenumber')
-    # Need to find a way to change this to the cloud 9 url when appropriate.
-    # Probably set up an environment.sh, that just gets picked up locally.
     url = '%s/titlefromreference' % app.config['CASEWORK_STUB']
-    #http://0.0.0.0:5010
     data = {"reference": referencenumber}
     headers = {'Content-Type': 'application/json'}
     r = requests.post(url, data=json.dumps(data), headers=headers)
