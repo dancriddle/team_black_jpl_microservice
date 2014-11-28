@@ -9,6 +9,14 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route('/checkfortitle')
+def check_for_title():
+    #here, we'll make the call to url = 'http://0.0.0.0:5010/titlefromreference' etc'
+    return render_template("a_new_is_this_your)_title_template.html")
+    #the above template will call the removerestriction route below.
+
+
+
 @app.route('/removerestriction', methods=['POST'])
 def remove_restriction():
     referencenumber = request.form.get('referencenumber')
@@ -21,6 +29,7 @@ def remove_restriction():
     titlenumber = r.text
     app.logger.debug(r.text)
     return render_template("restriction_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
+    #and here call the casework servivce to remove te restriction flag.
 
 
 if __name__ == '__main__':
