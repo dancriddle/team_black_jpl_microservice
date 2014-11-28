@@ -41,3 +41,4 @@ python frontend.py
 the app runs locally at:
 
 http://0.0.0.0:5009/
+how to use this app $ curl -i -H "Content-Type: application/json" -X PUT -d '{"complete": true}' Https://eam-black-casework-2-srallis1-2.c9.io/todo/api/v1.0/titles/complete/2345678
