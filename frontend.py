@@ -26,32 +26,27 @@ def check_for_title():
     else:
         return render_template("reference_valid.html", referencenumber=referencenumber, titlenumber=titlenumber)
     
-    #the above template will call the removerestriction route below.
+    
 
 
 
 @app.route('/removerestriction', methods=['POST'])
 def remove_restriction():
+    print "Remove restriction"
+    
     referencenumber = request.form.get('referencenumber')
     titlenumber = request.form.get('titlenumber')
-    # Need to find a way to change this to the cloud 9 url when appropriate.
-    # Probably set up an environment.sh, that just gets picked up locally.
-    #url = 'https://team-black-casework-2-srallis1-2.c9.io/titlefromreference'
-    #data = {"reference": referencenumber}
-    #headers = {'Content-Type': 'application/json'}
-    #r = requests.post(url, data=json.dumps(data), headers=headers)
-    #titlenumber = r.text
+    url = '%s/complete' % app.config['CASEWORK_STUB']
+    referencenumber = request.form.get('referencenumber')
+    data = {"reference": referencenumber}
+    headers = {'Content-Type': 'application/json'}
+    r = requests.post(url, data=json.dumps(data), headers=headers)
     
-    #app.logger.debug(r.text)
+    if r.text != "True":
+        return render_template("restriction_not_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
+    else:
+        return render_template("restriction_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
     
-    #if titlenumber == "Referance not valid":
-        #return render_template("reference_invalid.html", referencenumber=referencenumber)
-    #else:
-
-    return render_template("restriction_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
-    
-    #return render_template("restriction_removed.html", referencenumber=referencenumber, titlenumber=titlenumber)
-    #and here call the casework servivce to remove te restriction flag.
     
 
 if __name__ == '__main__':
